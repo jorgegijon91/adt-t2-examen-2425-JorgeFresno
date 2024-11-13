@@ -16,13 +16,13 @@ public class BookManager {
     // Agrega un libro a la lista (no persiste en archivo)
     public void addBook(Book book) {
         // TODO
-
+        books.add(book);
             }
-        }
-    }
+
+
 
     public List<Book> getBooks() {
-        // TODO
+        return books;
     }
 
     // Guardar el informe en un archivo de texto con el nombre del autor
@@ -30,6 +30,7 @@ public class BookManager {
         // La siguiente instrucción
         String fileName = author.replaceAll(" ", "_") + "_report.txt";
         // TODO
+
     }
 
     // Guarda los libros en formato json
