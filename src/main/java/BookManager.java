@@ -30,7 +30,19 @@ public class BookManager {
         // La siguiente instrucción
         String fileName = author.replaceAll(" ", "_") + "_report.txt";
         // TODO
+        List<Book> booksByAuthor = books.stream()
+                .filter(book -> book.getAuthor().equalsIgnoreCase(author)) // Filtra libros por autor
+                .collect(Collectors.toList()); // Crea una nueva lista con los libros filtrados
 
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            //Foreach para imprimir los libros
+            for (Book book : booksByAuthor) {
+                writer.println(book);
+            }
+            System.out.println("Infome guardado en: " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error al guardar el informe: " + e.getMessage());
+        }
     }
 
     // Guarda los libros en formato json
