@@ -48,11 +48,28 @@ public class BookManager {
     // Guarda los libros en formato json
     public void saveBooksToJsonFile(String filePath) {
         // TODO
+        //ObjetMapper de jackson
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            //Escribe los libros en el archivo
+            objectMapper.writeValue(new File(filePath), books);
+            System.out.println("Libros fueron guardados en: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error al guardar libros: " + e.getMessage());
+        }
     }
 
     // Carga los libros desde un archivo json
     public void loadBooksFromJsonFile(String filePath) {
         // TODO
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            //Lee los libros del archivo
+            books = objectMapper.readValue(new File(filePath), new TypeReference<List<Book>>() {});
+            System.out.println("Libros fueron cargados desde: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error al cargar libros: " + e.getMessage());
+        }
     }
 
     // Método para guardar los libros en un archivo binario
