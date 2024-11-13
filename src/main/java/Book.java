@@ -1,8 +1,14 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Book {
+import java.io.Serializable;
+
+//Implementar Serializable para darle permiso a Java para que lo almacene en binario
+public class Book implements Serializable {
+    @JsonProperty ("titulo")
     private String title;
+    @JsonProperty ("autor")
     private String author;
+    @JsonProperty ("anio")
     private int year;
 
     public Book(String title, String author, int year) {
