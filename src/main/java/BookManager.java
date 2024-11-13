@@ -17,8 +17,7 @@ public class BookManager {
     public void addBook(Book book) {
         // TODO
         books.add(book);
-            }
-
+    }
 
 
     public List<Book> getBooks() {
@@ -65,7 +64,8 @@ public class BookManager {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             //Lee los libros del archivo
-            books = objectMapper.readValue(new File(filePath), new TypeReference<List<Book>>() {});
+            books = objectMapper.readValue(new File(filePath), new TypeReference<List<Book>>() {
+            });
             System.out.println("Libros fueron cargados desde: " + filePath);
         } catch (IOException e) {
             System.out.println("Error al cargar libros: " + e.getMessage());
@@ -75,10 +75,24 @@ public class BookManager {
     // Método para guardar los libros en un archivo binario
     public void saveBooksToBinaryFile(String filePath) {
         // TODO
+        //ObjetOutputStream para escribir en binario
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(books);
+            System.out.println("Libros guardados en binario: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error al guardar en binario: " + e.getMessage());
+        }
     }
 
     // Método para cargar los libros desde un archivo binario
     public void loadBooksFromBinaryFile(String filePath) {
         // TODO
+        //ObjetInputStream para leer en binario
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            books = (List<Book>) ois.readObject();
+            System.out.println("Libros cargados desde binario: " + filePath);
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar desde binario: " + e.getMessage());
+        }
     }
 }
